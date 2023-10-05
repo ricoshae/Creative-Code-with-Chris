@@ -1,0 +1,214 @@
+<style type="text/css">
+.mitem {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.qitem {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #5384a0;
+    color: #fff;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.speechbubbleright {
+    width: 100%;
+    margin: 50px auto;
+    border: 1px solid #c1c1c1;
+    padding: 5px;
+    text-align: center;
+    font-weight: 900;
+    color: #858181;
+    font-family: arial;
+    position: relative;
+    border-radius: 5px;
+}
+
+.speechbubbleright:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid #c1c1c1;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #c1c1c1;
+    border-bottom: 10px solid transparent;
+    right: -20px;
+    top: 6px;
+}
+
+.speechbubbleright:after {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 7px solid #fff;
+    border-right: 7px solid transparent;
+    border-top: 7px solid #fff;
+    border-bottom: 7px solid transparent;
+    right: -11px;
+    top: 10px;
+}
+
+.speechbubbleleft {
+    width: 100%;
+    margin: 50px auto;
+    border: 1px solid #c1c1c1;
+    padding: 5px;
+    text-align: center;
+    font-weight: 900;
+    color: #858181;
+    font-family: arial;
+    border-radius: 5px;
+    position: relative;
+}
+
+.speechbubbleleft:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid transparent;
+    border-right: 10px solid #e0dfdf;
+    border-top: 10px solid #e0dfdf;
+    border-bottom: 10px solid transparent;
+    left: -20px;
+    top: 6px;
+}
+
+.speechbubbleleft:after {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 7px solid transparent;
+    border-right: 8px solid #fff;
+    border-top: 7px solid #fff;
+    border-bottom: 7px solid transparent;
+    left: -15px;
+    top: 8px;
+}
+
+.speechbubblemuted {
+    display: none;
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+</style>
+
+<body>
+    <div class="panelcontent" style="padding:50px;font-size:x-large; ">
+        <h2>Scenario: Deciding how to tell your boss you want some time off</h2>
+        <h3> Select the most appropriate response to match the situation.</h3>
+        <div class="choiceactivity">
+            <button onclick="choiceactivity(this,0)">Start the activity</button>
+            <div class="activitydisplay"></div>
+            <div class="activitydata hidden">
+                <div class="item">
+                    <div class="message">Boss is busy on the phone when you walk into the office.</div>
+                    <div class="question" data-value="1">You: Interupt the call as your question is more important.</div>
+                    <div class="question" data-value="2">You: Wait until the boss has finished talking on the phone</div>
+                </div>
+                <div class="item">
+                    <div class="message">There may be a more appropriate response.</div>
+                    <div class="question" data-value="-1">Try again</div>
+                </div>
+                <div class="item">
+                    <div class="message">Boss: How can I help you today?</div>
+                    <div class="question" data-value="2">You: Hope you don't mind me interupting, I just have an important question I wanted to ask.</div>
+                    <div class="question" data-value="1">You: I am your best and hardest worker and I deserve a break....</div>
+                </div>
+                <div class="item">
+                    <div class="message">There may be a more appropriate response.</div>
+                    <div class="question" data-value="-1">Try again</div>
+                </div>
+                <div class="item">
+                    <div class="message">Boss: Sure, what do you need?</div>
+                    <div class="question" data-value="1">You: I need to get away from this place. It is driving me crazy. </div>
+                    <div class="question" data-value="2">You: I was wondering if i could have some time of work next week?</div>
+                </div>
+                <div class="item">
+                    <div class="message">There may be a more appropriate response.</div>
+                    <div class="question" data-value="-1">Try again</div>
+                </div>
+                <div class="item">
+                    <div class="message">Boss: Sure, that's fine let me know how much time you need.</div>
+                    <div class="question">This is the end of the scenario, reflect upon this scenario.</div>
+                    <div class="question" data-value="0">Restart</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+function choiceactivity(node, a) {
+    if (a === undefined) {
+        a = 0;
+    }
+    // get the data for this activity
+    var activitydata = node.parentNode.querySelector(".activitydata");
+    // a is current item
+    var activitydisplay = node.parentNode.querySelector(".activitydisplay");
+    //if (a == 0) {
+    activitydisplay.innerHTML = "";
+    //}
+    var items = activitydata.querySelectorAll(".item");
+    //console.dir(items[a].querySelector(".message").length);
+    if (items[a].querySelector(".message") !== undefined) {
+        div = document.createElement('div');
+        div.setAttribute('class', 'speechbubbleleft fadein1');
+        div.innerHTML = items[a].querySelector(".message").innerHTML;
+        activitydisplay.appendChild(div);
+    }
+    // loop questions
+    var questions = items[a].querySelectorAll(".question");
+    for (var i = 0; i < questions.length; ++i) {
+        q = document.createElement('div');
+        q.setAttribute('class', 'qitem fadein3');
+        //q.setAttribute('class', 'fadeIn');
+        q.setAttribute('data-value', questions[i].getAttribute('data-value'));
+        q.innerHTML = questions[i].innerHTML;
+        q.onclick = function() {
+            var newa = this.getAttribute('data-value');
+            if (parseInt(newa) == 0) {
+                a = 0;
+            }
+            var k = a + parseInt(newa);
+
+            choiceactivity(node, k);
+        }
+        activitydisplay.appendChild(q);
+    }
+}
+</script>
