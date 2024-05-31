@@ -1,0 +1,34 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 800">
+<circle cx="400" cy="200" r="100" fill="#079942"/>
+<script type="text/javascript"><![CDATA[
+ window.addEventListener('load', function(){
+ var moveSpped = 5;
+ var circle = document.getElementsByTagName("circle")[0];
+  var x = circle.getAttribute('cx')*1,
+      y = circle.getAttribute('cy')*1;
+      
+ document.documentElement.addEventListener('keydown',function(evt){
+	
+  console.log(evt.keyCode);
+  
+  switch (evt.keyCode){
+        case 65: // A
+        circle.setAttribute('cy', y -= 5);
+        break;
+        case 90: // Z
+        circle.setAttribute('cy', y += 5);
+        break;
+        case 188: // <
+        circle.setAttribute('cx', x -= 5);
+        break;
+        case 190: // >
+        circle.setAttribute('cx', x += 5);
+        break;
+        
+        }
+  
+ });
+ 
+ }); ]]>
+ </script>
+</svg>
